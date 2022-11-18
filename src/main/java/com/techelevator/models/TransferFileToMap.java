@@ -20,23 +20,13 @@ public class TransferFileToMap{
                 Double price = Double.parseDouble(tempPrice);
                 String type = lineOfTextArray[3];
 
-<<<<<<< HEAD
-                ItemsForSale stuff = new ItemsForSale(zero,one,two,three);
-                CollectItems mapStuff = new CollectItems(zero, stuff);
 
-                //for(int i = 0; i < lineOfTextArray.length; i++) {
+//                ItemsForSale stuff = new ItemsForSale(zero,one,two,three);
+//                CollectItems mapStuff = new CollectItems(zero, stuff);
 
-                //}
-                /*
-                for(Map.Entry<String,ItemsForSale> eachItem : ItemsForSale.entrySet()) {
-                    //ItemsForSale.put(eachItem.getKey() + eachItem.getPrice().toString());
-                    //ItemsForSale.setSlot(lineOfText[0]);
-                }
-                 */
-=======
                 ItemsForSale mapValue = new ItemsForSale(slot,itemName,price,type);
                 mapItems.addItems(slot, mapValue);
->>>>>>> 83ca1d6dd2491ed1c523ca781e01478baf4345e6
+
             }
 
         } catch(Exception e) {
