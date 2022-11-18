@@ -10,6 +10,13 @@ public class ItemsForSale {
     private double price;
     private String type;
 
+    public ItemsForSale() {
+
+    }
+
+    public void setSlot() {
+
+    }
 
 
 }
