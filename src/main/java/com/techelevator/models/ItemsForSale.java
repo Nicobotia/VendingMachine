@@ -9,6 +9,7 @@ public class ItemsForSale {
     private String itemName;
     private double price;
     private String type;
+    private int inStock;
 
     public ItemsForSale(String slot1, String itemName, double price, String type) {
         this.slot = slot1;
