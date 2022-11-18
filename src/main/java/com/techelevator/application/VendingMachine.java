@@ -1,44 +1,42 @@
 package com.techelevator.application;
 
-import com.techelevator.models.CollectItems;
-import com.techelevator.models.TransferFileToMap;
+import com.techelevator.models.ItemsForSale;
+import com.techelevator.models.TransferFileToList;
 import com.techelevator.ui.UserInput;
 import com.techelevator.ui.UserOutput;
 
-public class VendingMachine 
-{
-    public void run()
-    {
+import java.util.List;
+
+public class VendingMachine {
+    private List<ItemsForSale> lisOfItems;
+    public void run() {
         UserOutput userOutput = new UserOutput();
         UserInput userInput = new UserInput();
 
-        while(true)
-        {
+        while (true) {
             userOutput.displayHomeScreen();
             String choice = userInput.getHomeScreenOption();
 
-            if(choice.equals("display"))
-            {
+            if (choice.equals("display")) {
                 // display the vending machine slots
-                TransferFileToMap map = new TransferFileToMap();
-                CollectItems items = map.readItems();
-                for(String key : items.getMap().keySet()){
-                    System.out.println(key + " " + items.getMap().get(key).getItemName() + " " + "$" + items.getMap().get(key).getPrice());
+                TransferFileToList list = new TransferFileToList();
+                lisOfItems  = list.readItems();
+                //add if product ran out of stock
+                for (ItemsForSale item : lisOfItems){
+                    System.out.println(item.getSlot() + " " + item.getItemName() + " " + "$" + item.getPrice() + " quantity left: " + item.getInStock());
                 }
 
 
-            }
-            else if(choice.equals("purchase"))
-            {
-                // make a purchase
-            }
-            else if(choice.equals("exit"))
-            {
+            } else if (choice.equals("purchase")) {
+               choice = userInput.getPurchaseHomeOption();
+                System.out.println("here part 2" + choice);
+
+            } else if (choice.equals("exit")) {
                 // good bye+
 
                 break;
             }
         }
     }
-    
+
 }

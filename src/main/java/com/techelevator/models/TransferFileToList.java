@@ -1,11 +1,13 @@
 package com.techelevator.models;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
-public class TransferFileToMap{
-    public CollectItems readItems() {
-        CollectItems mapItems = new CollectItems();
+public class TransferFileToList {
+    private List<ItemsForSale> listItems = new ArrayList<>();
+    public List<ItemsForSale> readItems() {
         // read in file
         File cateringFile = new File("catering.csv");
         //split each line
@@ -24,14 +26,17 @@ public class TransferFileToMap{
 //                ItemsForSale stuff = new ItemsForSale(zero,one,two,three);
 //                CollectItems mapStuff = new CollectItems(zero, stuff);
 
-                ItemsForSale mapValue = new ItemsForSale(slot,itemName,price,type);
-                mapItems.addItems(slot, mapValue);
+// ItemsForSale is abstract class and make subclasses (gum, candy, etc) extend + dispense sound
+                //Create if classes
+                ItemsForSale values = new CandyClass (slot,itemName,price,type);
+                listItems.add(values);
+
 
             }
 
         } catch(Exception e) {
             System.out.println("file not found" + cateringFile.getAbsolutePath());
         }
-        return mapItems;
+        return listItems;
     }
 }

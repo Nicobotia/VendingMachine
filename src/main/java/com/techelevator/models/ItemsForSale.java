@@ -4,7 +4,7 @@ import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ItemsForSale {
+public abstract class ItemsForSale {
     private String slot;
     private String itemName;
     private double price;
@@ -16,6 +16,7 @@ public class ItemsForSale {
         this.itemName = itemName;
         this.price = price;
         this.type = type;
+        this.inStock = 6; //changed to = 6
         //do we need default stuff?????? naw
     }
 
@@ -35,6 +36,19 @@ public class ItemsForSale {
     public String getType() {
 
         return type;
+    }
+
+    public int getInStock() {
+        return inStock;
+    }
+
+    public void setInStock(int inStock) {
+        this.inStock = inStock;
+    }
+
+    public String getSound(){
+
+        return "";
     }
 
 

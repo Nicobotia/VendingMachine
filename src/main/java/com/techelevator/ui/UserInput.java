@@ -33,18 +33,41 @@ public class UserInput
         }
         else if (option.equals("P"))
         {
-            return "purchase";
+          return "Purchase";
         }
         else if (option.equals("E"))
         {
             return "exit";
         }
+
         else
         {
             return "";
         }
 
+
     }
+
+    public String getPurchaseHomeOption (){
+        System.out.println("M) Feed money");
+        System.out.println("S) Select item");
+        System.out.println("F) Finish transaction");
+        String selectedOption = scanner.nextLine();
+        String option = selectedOption.trim().toUpperCase();
+        if (option.equals("M")){
+            return "Feed money";
+        }
+        else if(option.equals("S")){
+            return "Select item";
+        }
+        else if (option.equals("F")){
+            return "Finish transaction";
+        }
+        else {
+            return "";
+        }
+
+}
 
     
 }
