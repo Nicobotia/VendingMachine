@@ -1,9 +1,6 @@
 package com.techelevator.models;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.Map;
 import java.util.Scanner;
 
 public class TransferFileToMap{
@@ -27,8 +24,8 @@ public class TransferFileToMap{
                 ItemsForSale stuff = new ItemsForSale(zero,one,two,three);
                 CollectItems mapStuff = new CollectItems(zero, stuff);
 
-                for(int i = 0; i < lineOfTextArray.length; i++) {
-                }
+                //for(int i = 0; i < lineOfTextArray.length; i++) {
+                //}
                 /*
                 for(Map.Entry<String,ItemsForSale> eachItem : ItemsForSale.entrySet()) {
                     //ItemsForSale.put(eachItem.getKey() + eachItem.getPrice().toString());
