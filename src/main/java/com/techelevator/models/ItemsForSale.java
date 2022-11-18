@@ -9,6 +9,7 @@ public class ItemsForSale {
     private String itemName;
     private double price;
     private String type;
+    private int inStock;
 
     public ItemsForSale(String slot1, String itemName, double price, String type) {
         this.slot = slot1;
@@ -20,20 +21,21 @@ public class ItemsForSale {
 
     //i dont think we need the stuff below but just in case :3
     public String getSlot() {
+
         return slot;
     }
     public String getItemName(){
+
         return itemName;
     }
     public double getPrice() {
+
         return price;
     }
     public String getType() {
+
         return type;
     }
 
-    //public void setSlot(String slot) {
-    //    this.slot = slot;
-    //}
 
 }
