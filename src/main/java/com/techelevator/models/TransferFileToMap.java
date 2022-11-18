@@ -25,6 +25,7 @@ public class TransferFileToMap{
                 CollectItems mapStuff = new CollectItems(zero, stuff);
 
                 //for(int i = 0; i < lineOfTextArray.length; i++) {
+
                 //}
                 /*
                 for(Map.Entry<String,ItemsForSale> eachItem : ItemsForSale.entrySet()) {
