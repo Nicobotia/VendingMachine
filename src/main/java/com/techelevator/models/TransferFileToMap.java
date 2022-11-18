@@ -16,8 +16,8 @@ public class TransferFileToMap{
 
                 String slot = lineOfTextArray[0];
                 String itemName = lineOfTextArray[1];
-                String temp = lineOfTextArray[2];
-                Double price = Double.parseDouble(temp);
+                String tempPrice = lineOfTextArray[2];
+                Double price = Double.parseDouble(tempPrice);
                 String type = lineOfTextArray[3];
 
                 ItemsForSale mapValue = new ItemsForSale(slot,itemName,price,type);
@@ -25,7 +25,7 @@ public class TransferFileToMap{
             }
 
         } catch(Exception e) {
-            System.out.println("file not found");
+            System.out.println("file not found" + cateringFile.getAbsolutePath());
         }
         return mapItems;
     }

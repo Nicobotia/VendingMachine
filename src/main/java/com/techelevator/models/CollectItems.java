@@ -5,13 +5,14 @@ import java.util.Map;
 
 public class CollectItems {
     private String mapSlot;
-    private ItemsForSale otherStuff;
+    private ItemsForSale restOfItems;
 
     Map<String, ItemsForSale> collectItemsMap = new HashMap<>();
-    public void addItems(String slot, ItemsForSale stuff) {
+
+    public void addItems(String slot, ItemsForSale restOfItems) {
         this.mapSlot = slot;
-        this.otherStuff = stuff;
-        collectItemsMap.put(mapSlot,otherStuff);
+        this.restOfItems = restOfItems;
+        collectItemsMap.put(mapSlot, restOfItems);
     }
 
     public Map<String, ItemsForSale> getMap(){

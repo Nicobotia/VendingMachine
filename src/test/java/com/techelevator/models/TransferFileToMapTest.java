@@ -15,10 +15,10 @@ public class TransferFileToMapTest {
         CollectItems collectItems = test.readItems();
         Map<String, ItemsForSale> map = collectItems.getMap();
         ItemsForSale items = map.get("A1");
-        Assert.assertEquals(items.getItemName(), "U-Chews");
-        Assert.assertEquals(items.getPrice(), 1.65, 0.01);
-        Assert.assertEquals(items.getSlot(), "A1");
-        Assert.assertEquals(items.getType(), "Gum");
+        Assert.assertEquals("U-Chews", items.getItemName());
+        Assert.assertEquals( 1.65, 0.01, items.getPrice());
+        Assert.assertEquals( "A1", items.getSlot());
+        Assert.assertEquals( "Gum", items.getType());
         Assert.assertEquals(16, map.size());
     }
 }
