@@ -7,7 +7,7 @@ public class TransferFileToMap{
     public CollectItems readItems() {
         CollectItems mapItems = new CollectItems();
         // read in file
-        File cateringFile = new File("C:\\Users\\Student\\workspace\\nicolas-botia-student-code\\java-orange-minicapstonemodule1-team2\\src\\catering.csv");
+        File cateringFile = new File("catering.csv");
         //split each line
         try(Scanner fileInput = new Scanner(cateringFile)) {
             while (fileInput.hasNextLine()) {
