@@ -24,19 +24,12 @@ public class TransferFileToList {
                 Double price = Double.parseDouble(tempPrice);
                 String type = lineOfTextArray[3];
 
-
-//                ItemsForSale stuff = new ItemsForSale(zero,one,two,three);
-//                CollectItems mapStuff = new CollectItems(zero, stuff);
-
 // ItemsForSale is abstract class and make subclasses (gum, candy, etc) extend + dispense sound
                 //Create if classes
                 // if () ==> if user input is candy class, display code from below
                 ItemsForSale values = new CandyClass (slot,itemName,price,type);
                 listItems.add(values);
-
-
             }
-
         } catch(Exception e) {
             System.out.println("file not found" + cateringFile.getAbsolutePath());
         }

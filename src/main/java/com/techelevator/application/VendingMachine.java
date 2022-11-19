@@ -1,5 +1,6 @@
 package com.techelevator.application;
 
+import com.techelevator.models.Balance;
 import com.techelevator.models.ItemsForSale;
 import com.techelevator.models.TransferFileToList;
 import com.techelevator.ui.UserInput;
@@ -27,18 +28,24 @@ public class VendingMachine {
             }
             else if(choice.equals("purchase")) {
                 System.out.println("here in purchase");   //so what happened is that we were returning purchase with a capital P in user input so it would exit us
-                userInput.getPurchaseHomeOption();
-                // we get display options now what?
-                //maybe we send to a method outside so it doesnt get messy?
-                //we could do the same with display
-                //okay if m is returned this is where the money class comes in
+                choice = userInput.getPurchaseHomeOption();
+                if(choice.equals("Feed money")) {
+                    //CALL BALANCE CLASS SOMEHOW????
+                    //Balance.addMoney(); // this doesn't work beacuse static
+                }
+                else if(choice.equals("Select item")) {
+                    //Bring up item menu?
+                }
+                else if(choice.equals("Finish transaction")) {
+                    //payment and then send back to regular menu?
+                }
             }
             else if (choice.equals("exit")) {
                 System.out.println("here in exit");
                 break; // might not need this?
             }
         } while(choice.equals("display"));
-        /*
+        /* //Dont delete this yet in case we need it again because of true condition
         while (!x.equals("exit")) {
             //userOutput.displayHomeScreen();
             String choice = userInput.getHomeScreenOption();
