@@ -14,6 +14,7 @@ public class VendingMachine {
     public void run() {
         UserOutput userOutput = new UserOutput();
         UserInput userInput = new UserInput();
+        Balance balance = new Balance(BigDecimal.ZERO);
 
         String choice;
         do {
@@ -25,7 +26,7 @@ public class VendingMachine {
                 //add if product ran out of stock
                 //maybe we can menu print to its own method
                 for (ItemsForSale item : lisOfItems){
-                    System.out.print(item.getSlot() + " " + item.getItemName() + " " + "$" + item.getPrice() + " quantity left: " + item.getInStock());
+                    System.out.print(item.getSlot() + " " + item.getItemName() + " " + "$" + item.getPrice() + " quantity left: " + item.getInStock() + " | ");
                     //System.out.println("itemlength: " + item.getItemName().length());
                     //System.out.println(item.getSlot() + " " + item.getItemName() + " " + "$" + item.getPrice() + "       " + "Quantity Left: " + item.getInStock());
                 }
@@ -35,11 +36,10 @@ public class VendingMachine {
                 choice = userInput.getPurchaseHomeOption();
                 if(choice.equals("Feed money")) {
                     //LINE 37: SAVES THE BALANCE FROM ADDMONEY() METHOD IN BALANCE CLASS TO VARIABLE X SO WE CAN SEND IT BACK TO BE SAVED IN MACHINE BALANCE
-                    BigDecimal x = Balance.addMoney(); //static worked, now need to figure out how to add the money the user inputs
+                    BigDecimal x = balance.addMoney();
                     System.out.println("Current balance in purchase: $" + x);
                     //THIS IS WHERE WE send x to machineBalance
                     Balance moneyInMachine = new Balance(x); //THIS CREATES NEW BALANCE OBJECT WHICH WILL HOLD OUR BALANCE
-                    System.out.println("balance class variable machineBalance says amount fed to machine: $" + moneyInMachine.getMachineBalance());
                     //SO IN PREVIOUS LINE 41 I CALLED THE MACHINE BALANCE AND IT GIVES ME THE SAME NUMBER THAT WE INPUT IN ADDMONEY METHOD
                 }
                 else if(choice.equals("Select item")) { //WE CAN START WORKING ON THIS!!! STEP 7 SELECTION S SELECT ITEM

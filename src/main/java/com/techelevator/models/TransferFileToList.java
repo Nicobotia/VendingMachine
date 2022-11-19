@@ -27,8 +27,11 @@ public class TransferFileToList {
 // ItemsForSale is abstract class and make subclasses (gum, candy, etc) extend + dispense sound
                 //Create if classes
                 // if () ==> if user input is candy class, display code from below
-                ItemsForSale values = new CandyClass (slot,itemName,price,type);
-                listItems.add(values);
+                if (type.equalsIgnoreCase("Candy")){
+                    ItemsForSale values = new CandyClass (slot,itemName,price);
+                    listItems.add(values);
+                }
+
             }
         } catch(Exception e) {
             System.out.println("file not found" + cateringFile.getAbsolutePath());

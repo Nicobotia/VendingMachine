@@ -4,46 +4,42 @@ import java.math.BigDecimal;
 import java.util.Scanner;
 
 public class Balance {
-    private BigDecimal machineBalance;
+    private BigDecimal currentMoney;
     private BigDecimal stuffCost; //not used yet
     private BigDecimal itemCost; //not used yet
 
     public Balance(BigDecimal x) {
-        this.machineBalance = x; //in order to create a balance object you have to input x which is the current balance
-                                    //Check vending machine class
+        this.currentMoney = x; //in order to create a balance object you have to input x which is the current balance
+        this.currentMoney = this.currentMoney.setScale(2);
+                                //Check vending machine class
     }
 
     public BigDecimal getMachineBalance() { //return balance of money fed to machine
-        return machineBalance;
+        return currentMoney;
     }
 
-    public static BigDecimal addMoney() {
+    public BigDecimal addMoney() {
         Scanner feedMoney = new Scanner(System.in);
-        BigDecimal currentMoney = new BigDecimal(0);
         BigDecimal one = new BigDecimal(1);
         BigDecimal five = new BigDecimal(5); //creating these variables fixed the issue of not being able to add the user money. OKAY.
         BigDecimal ten = new BigDecimal(10);  //can we put this in private variables at the top? ASK IF THAT IS A GOOD IDEA MAYBE?
-        BigDecimal twenty = new BigDecimal(20);
+        BigDecimal twenty = new BigDecimal(20); //Talked to Kelvin, he said here are good.
 
-        twoStrings(); //FOR NEATNESS PLEASE ENTER MONEY/TYPE 0 WHEN DONE LINES ADDED TO METHOD AT THE BOTTOM, FEEL FREE TO DELETE THIS COMMENT AFTER YOU READ
-        BigDecimal money = feedMoney.nextBigDecimal();
+        while (true){
+            System.out.println("Please enter money (only $1, $5, $10 or $20 bills): ");
+            System.out.println("When done entering money please type 'done'");                         //FOR NEATNESS PLEASE ENTER MONEY/TYPE 0 WHEN DONE LINES ADDED TO METHOD AT THE BOTTOM, FEEL FREE TO DELETE THIS COMMENT AFTER YOU READ
+            String userInput = feedMoney.nextLine();
+            if (userInput.equals("done")) {
+                break;
+            }
+            BigDecimal money = new BigDecimal(userInput);
 
-        while(!money.equals(BigDecimal.ZERO)) {
-            if (money.equals(one) || money.equals(five)|| money.equals(ten) || money.equals(twenty)) { // if statement works
+            if (money.compareTo(one) == 0 || money.compareTo(five) == 0 || money.compareTo(ten) == 0 || money.compareTo(twenty) == 0) { // if statement works
                 currentMoney = currentMoney.add(money);
-                System.out.println("Current Money Provided: " + currentMoney);
+            } else {
+                System.out.println("Error, incorrect bill amount");
             }
-            else {
-                while(!money.equals(one) || !money.equals(five)|| !money.equals(ten) || !money.equals(twenty)) {
-                    System.out.println("Error, please enter money (only $1, $5, $10 or $20 bills): ");
-                    System.out.println("When done entering money please type '0'");
-                    money = feedMoney.nextBigDecimal();
-                }
-                currentMoney = currentMoney.add(money); //  I DIDNT TRY TO TYPE IN SOMETHING WRONG CUZ WHAT IF IT WENT WRONG AND ITS LIKE 11 FEEL FREE TO TRY
-                System.out.println("Current Money Provided: " + currentMoney);
-            }
-            twoStrings();
-            money = feedMoney.nextBigDecimal();
+            System.out.println("Current balance: " + "$" + currentMoney);
         }
         return currentMoney;
     }
@@ -59,11 +55,4 @@ public class Balance {
     }
     //or can we just use one method and substract from each other
 
-
-
-
-    public static void twoStrings() {
-        System.out.println("Please enter money (only $1, $5, $10 or $20 bills): ");
-        System.out.println("When done entering money please type '0'");
-    }
 }
