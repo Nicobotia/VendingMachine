@@ -1,5 +1,6 @@
 package com.techelevator.ui;
 
+import com.techelevator.models.Balance;
 import com.techelevator.models.PurchaseMenu;
 
 import java.math.BigDecimal;

@@ -31,6 +31,7 @@ public class VendingMachine {
                 choice = userInput.getPurchaseHomeOption();
                 if(choice.equals("Feed money")) {
                     //CALL BALANCE CLASS SOMEHOW????
+                    Balance.addMoney(); //static worked, now need to figure out how to add the money the user inputs
                     //Balance.addMoney(); // this doesn't work beacuse static
                 }
                 else if(choice.equals("Select item")) {

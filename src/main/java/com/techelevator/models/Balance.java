@@ -1,5 +1,7 @@
 package com.techelevator.models;
 
+import com.techelevator.ui.UserInput;
+
 import java.math.BigDecimal;
 import java.util.Scanner;
 
@@ -22,19 +24,29 @@ public class Balance {
     }
     //METHOD TO ADD MONEY TO MACHINE
     //we can simplify this method but idk how to yet
-    public void addMoney() {
+    public static void addMoney() {
         System.out.println("Please enter money (only $1, $5, $10 or $20 bills): ");
         Scanner feedMoney = new Scanner(System.in);
         BigDecimal money = feedMoney.nextBigDecimal();
-        BigDecimal currentMoney = new BigDecimal("0.00");
+        BigDecimal currentMoney = new BigDecimal(0);
         currentMoney = currentMoney.add(money); //do we need to add this. keyword???
+        BigDecimal one = new BigDecimal(1);
+        BigDecimal five = new BigDecimal(5); //creating these variables fixed the issue of not being able to add the user money.
+        BigDecimal ten = new BigDecimal(10);
+        BigDecimal twenty = new BigDecimal(20);
+
         do {
-            System.out.println("Please enter money (only $1, $5, $10 or $20 bills): ");
-            System.out.println("When done entering money please type '0'"); //add money added for the first time
+            System.out.println("When done entering money please type 'done'"); //add money added for the first time
             money = feedMoney.nextBigDecimal();
-            currentMoney = currentMoney.add(money);
-            System.out.println("Current Money Provided: " + "$" + currentMoney);
-        } while (!money.equals(BigDecimal.ZERO));
+            if (money.equals(one) || money.equals(five)|| money.equals(ten) || money.equals(twenty)){ // if statement works
+                currentMoney = currentMoney.add(money);
+                System.out.println("Current Money Provided: " + "$" + currentMoney);
+
+            } else {
+                System.out.println("\nError, enter only $1, $5, $10 or $20 bills.");
+            }
+
+        } while (!money.equals(BigDecimal.ZERO)); //maybe add user input and enter 'quit' in line 37 to quit?
     }
 
     public void currentMoneyMinusItemPrice() {
