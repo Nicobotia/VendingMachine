@@ -33,7 +33,7 @@ public class UserInput
         }
         else if (option.equals("P"))
         {
-          return "Purchase";
+          return "purchase";
         }
         else if (option.equals("E"))
         {
@@ -52,15 +52,20 @@ public class UserInput
         System.out.println("M) Feed money");
         System.out.println("S) Select item");
         System.out.println("F) Finish transaction");
+        System.out.println();
+        System.out.println("Current Money Provided: "); //variable to display money will be added here
         String selectedOption = scanner.nextLine();
         String option = selectedOption.trim().toUpperCase();
         if (option.equals("M")){
+            System.out.println("here feed money");
             return "Feed money";
         }
         else if(option.equals("S")){
+            System.out.println("here select item");
             return "Select item";
         }
         else if (option.equals("F")){
+            System.out.println("here transaction");
             return "Finish transaction";
         }
         else {

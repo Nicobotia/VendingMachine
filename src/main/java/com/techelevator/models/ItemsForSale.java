@@ -47,7 +47,6 @@ public abstract class ItemsForSale {
     }
 
     public String getSound(){
-
         return "";
     }
 
