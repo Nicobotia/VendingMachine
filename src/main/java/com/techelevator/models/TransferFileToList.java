@@ -1,5 +1,7 @@
 package com.techelevator.models;
 
+import com.techelevator.ui.UserInput;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +30,7 @@ public class TransferFileToList {
 
 // ItemsForSale is abstract class and make subclasses (gum, candy, etc) extend + dispense sound
                 //Create if classes
+                // if () ==> if user input is candy class, display code from below
                 ItemsForSale values = new CandyClass (slot,itemName,price,type);
                 listItems.add(values);
 

@@ -1,5 +1,7 @@
 package com.techelevator.ui;
 
+import com.techelevator.models.PurchaseMenu;
+
 import java.math.BigDecimal;
 import java.util.Scanner;
 
@@ -49,15 +51,17 @@ public class UserInput
     }
 
     public String getPurchaseHomeOption (){
+        BigDecimal x = new BigDecimal("0.00");
         System.out.println("M) Feed money");
         System.out.println("S) Select item");
         System.out.println("F) Finish transaction");
         System.out.println();
-        System.out.println("Current Money Provided: "); //variable to display money will be added here
+        System.out.println("Current Money Provided: " + "$" + x); //variable is in method
         String selectedOption = scanner.nextLine();
         String option = selectedOption.trim().toUpperCase();
         if (option.equals("M")){
-            System.out.println("here feed money");
+            x.equals(feedMoney());
+            System.out.println("Current money" + x);
             return "Feed money";
         }
         else if(option.equals("S")){
@@ -73,6 +77,22 @@ public class UserInput
         }
 
 }
+
+    public BigDecimal feedMoney (){
+        System.out.println("Please enter money (only $1, $5, $10 or $20 bills): ");
+        Scanner feedMoney = new Scanner(System.in);
+        BigDecimal money = feedMoney.nextBigDecimal();
+        BigDecimal currentMoney = new BigDecimal("0.00");
+        currentMoney = currentMoney.add(money);
+       do {
+           System.out.println("Please enter money (only $1, $5, $10 or $20 bills): ");
+           System.out.println("When done entering money please type '0'"); //add money added for the first time
+           money = feedMoney.nextBigDecimal();
+           currentMoney = currentMoney.add(money);
+           System.out.println("Money added " + "$" + currentMoney);
+        } while (!money.equals(BigDecimal.ZERO));
+        return currentMoney;
+    }
 
     
 }

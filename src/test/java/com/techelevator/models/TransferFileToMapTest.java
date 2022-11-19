@@ -10,7 +10,6 @@ public class TransferFileToMapTest {
     @Test
     public void readItems() {
         TransferFileToList test = new TransferFileToList();
-        //update
         List<ItemsForSale> collectItems = test.readItems();
         ItemsForSale items = null;
         for (ItemsForSale item : collectItems){
