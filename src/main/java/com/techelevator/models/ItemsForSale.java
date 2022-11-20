@@ -41,12 +41,13 @@ public class ItemsForSale {
 
         return inStock;
     }
-
     public void setInStock(int inStock) {
+
         this.inStock = inStock;
     }
 
     public String getSound(){
+
         return "";
     }
 }

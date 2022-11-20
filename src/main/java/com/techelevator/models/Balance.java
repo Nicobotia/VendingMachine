@@ -20,6 +20,9 @@ public class Balance {
         return currentMoney;
     }
 
+    public void setCurrentMoney(BigDecimal money) {
+        this.currentMoney = money;
+    }
     public BigDecimal addMoney() {
         Scanner feedMoney = new Scanner(System.in);
         BigDecimal one = new BigDecimal(1);
