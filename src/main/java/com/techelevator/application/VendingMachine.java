@@ -9,7 +9,6 @@ import com.techelevator.ui.UserOutput;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.math.MathContext;
 import java.math.RoundingMode;
 import java.util.List;
 
@@ -40,6 +39,7 @@ public class VendingMachine {
                 int count = 0;
                 int temp = 0; //remaining quantity
                 while(true) {
+                    userOutput.displayPurchaseScreen();
                     choice = userInput.getPurchaseHomeOption(money);
                     if (choice.equals("Feed money")) {
                         money = balance.addMoney();
@@ -114,8 +114,6 @@ public class VendingMachine {
         return moneyLeft;
     }
     public int dispensing(ItemsForSale item, BigDecimal remainingBalance, boolean tg) {
-        System.out.println("DISPENSING");
-        System.out.println("IN STOCK: " + item.getInStock());
         BigDecimal tempPrice = item.getPrice();
         if(tg) {
             tempPrice = tempPrice.subtract(BigDecimal.ONE);
@@ -126,15 +124,14 @@ public class VendingMachine {
         return remaining;
     }
     public void change(BigDecimal change) {
-        System.out.println("initial change " + change);
-        BigDecimal dollars = new BigDecimal("1");  //CAN WE MAKE ALL THESE DECIMALS PRIVATE OR SHOULD THEY STAY LOCAL?
+        BigDecimal dollars = new BigDecimal("1");
         BigDecimal quarters = new BigDecimal("0.25");
         BigDecimal dimes = new BigDecimal("0.10");
         BigDecimal nickels = new BigDecimal("0.05");
 
-        BigDecimal[] amount = new BigDecimal[4]; //here is where the amounts of each type of currency will go
+        BigDecimal[] amount = new BigDecimal[4];
         BigDecimal[] values = new BigDecimal[] {dollars, quarters, dimes, nickels};
-        for(int i = 0; i < amount.length; i++) { //THERES SOMETHING WRONG IN HERE BECAUSE NICKELS GETS A REALLY CRAZY DECIMAL NUMBER
+        for(int i = 0; i < amount.length; i++) {
             amount[i] = change.divide(values[i], 0, RoundingMode.DOWN);
             change = change.setScale(2).remainder(values[i]);
         }

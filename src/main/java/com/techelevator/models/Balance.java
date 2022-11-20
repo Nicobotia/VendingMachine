@@ -2,7 +2,6 @@ package com.techelevator.models;
 
 import java.math.BigDecimal;
 import java.util.Scanner;
-import com.techelevator.ui.UserInput;
 
 
 public class Balance {
@@ -21,6 +20,8 @@ public class Balance {
 
     public void setCurrentMoney(BigDecimal money) {
         this.currentMoney = money;
+        this.currentMoney = this.currentMoney.setScale(2);
+
     }
     public BigDecimal addMoney() {
         Scanner feedMoney = new Scanner(System.in);
@@ -39,7 +40,7 @@ public class Balance {
                 }
                 BigDecimal money = new BigDecimal(userInput);
 
-                if (money.compareTo(one) == 0 || money.compareTo(five) == 0 || money.compareTo(ten) == 0 || money.compareTo(twenty) == 0) { // if statement works
+                if (money.compareTo(one) == 0 || money.compareTo(five) == 0 || money.compareTo(ten) == 0 || money.compareTo(twenty) == 0) {
                     currentMoney = currentMoney.add(money);
                 } else {
                     System.out.println("Error, incorrect bill amount");

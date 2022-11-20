@@ -6,6 +6,7 @@ import java.time.format.DateTimeFormatter;
 
 public class AuditText {
 
+<<<<<<< HEAD
     //new file object where is it supposed to go
     //idk how to create file
     //File auditFile = new File("Audit.txt");
@@ -16,6 +17,19 @@ public class AuditText {
 
 
        }
+=======
+    File auditFile = new File("audit.txt");
+
+
+    public AuditText() throws FileNotFoundException {
+        try (PrintWriter dataOutput = new PrintWriter(auditFile)) {
+            dataOutput.println("Writing the first line of the file");
+            dataOutput.println("Writing the second line of the file");
+        } catch (FileNotFoundException e) {
+            System.err.println("Cannot open the file for writing.");
+        }
+    }
+>>>>>>> 9c3b95e1e063e6c1c96078c9d2f55e031e3a2612
 
 
 

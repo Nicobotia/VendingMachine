@@ -21,7 +21,7 @@ public class TransferFileToMapTest {
         BigDecimal test1 = new BigDecimal(String.valueOf(BigDecimal.ZERO));
 
         Assert.assertEquals("U-Chews", items.getItemName());
-        //Assert.assertEquals( 1.65, test1, items.getPrice());
+        Assert.assertEquals(new BigDecimal("1.65"), items.getPrice());
         Assert.assertEquals( "A1", items.getSlot());
         Assert.assertEquals( "Gum", items.getType());
         Assert.assertEquals(16, collectItems.size());

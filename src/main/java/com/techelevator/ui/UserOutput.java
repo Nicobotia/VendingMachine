@@ -29,4 +29,13 @@ public class UserOutput
         System.out.println();
     }
 
+    public void displayPurchaseScreen()
+    {
+        System.out.println();
+        System.out.println("***************************************************");
+        System.out.println("                 Purchase Menu");
+        System.out.println("***************************************************");
+        System.out.println();
+    }
+
 }
