@@ -92,6 +92,7 @@ public class VendingMachine {
                         //receive change
                         System.out.println("change to give back: " + moneyInMachine.getCurrentMoney());
                         change(moneyInMachine.getCurrentMoney());
+                        //moneyInMachine.setCurrentMoney(BigDecimal.ZERO);
                         break;
                     }
                 }
@@ -124,21 +125,18 @@ public class VendingMachine {
     }
     public void change(BigDecimal change) {
         System.out.println("initial change " + change);
-        BigDecimal dollars = new BigDecimal(1);  //CAN WE MAKE ALL THESE DECIMALS PRIVATE OR SHOULD THEY STAY LOCAL?
-        BigDecimal quarters = new BigDecimal(0.25);
-        BigDecimal dimes = new BigDecimal(0.10);
-        BigDecimal nickels = new BigDecimal(0.05);
+        BigDecimal dollars = new BigDecimal("1");  //CAN WE MAKE ALL THESE DECIMALS PRIVATE OR SHOULD THEY STAY LOCAL?
+        BigDecimal quarters = new BigDecimal("0.25");
+        BigDecimal dimes = new BigDecimal("0.10");
+        BigDecimal nickels = new BigDecimal("0.05");
 
         BigDecimal[] amount = new BigDecimal[4]; //here is where the amounts of each type of currency will go
         BigDecimal[] values = new BigDecimal[] {dollars, quarters, dimes, nickels};
         for(int i = 0; i < amount.length; i++) { //THERES SOMETHING WRONG IN HERE BECAUSE NICKELS GETS A REALLY CRAZY DECIMAL NUMBER
-            MathContext mc = new MathContext(2);
             amount[i] = change.divide(values[i], 0, RoundingMode.DOWN);
-            System.out.println("amount " + amount[i]);
-            change = change.setScale(2).remainder(values[i], mc);
-            System.out.println("current change/i " + change + " " + i + "\n");
+            change = change.setScale(2).remainder(values[i]);
         }
-        System.out.println("dollars " + amount[0] + " quarters " + amount[1] + " dimes " + amount[2] + " nickels " + nickels);
+        System.out.println("dollars " + amount[0] + " quarters " + amount[1] + " dimes " + amount[2] + " nickels " + amount[3]);
         //UPDATE BALANCE TO 0
     }
 
