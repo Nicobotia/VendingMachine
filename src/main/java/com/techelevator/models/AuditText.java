@@ -8,18 +8,14 @@ public class AuditText {
 
     //new file object where is it supposed to go
     //idk how to create file
-    File auditFile = new File("audit.txt");
+    //File auditFile = new File("Audit.txt");
 
 
 
-    public AuditText() throws FileNotFoundException {
-        try (PrintWriter dataOutput = new PrintWriter(auditFile)) {
-            dataOutput.println("Writing the first line of the file");
-            dataOutput.println("Writing the second line of the file");
-        } catch (FileNotFoundException e) {
-        System.err.println("Cannot open the file for writing.");
-        }
-    }
+    public AuditText(){
+
+
+       }
 
 
 
@@ -65,5 +61,6 @@ public class AuditText {
         //AND THE OTHER LITTLE COLUMN WOULD BE 0 LIKE EVERY TIME
         //AND THEN PRINT TO TEXT FILE
     }
+    
 
 }

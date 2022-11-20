@@ -1,5 +1,6 @@
 package com.techelevator.application;
 
+import com.techelevator.models.AuditText;
 import com.techelevator.models.Balance;
 import com.techelevator.models.ItemsForSale;
 import com.techelevator.models.TransferFileToList;
@@ -27,7 +28,7 @@ public class VendingMachine {
         TransferFileToList list = new TransferFileToList();
         lisOfItems  = list.readItems();
         Balance moneyInMachine = new Balance(money);
-
+        AuditText depositMoney = new AuditText();
         do {
             System.out.println("back inside do while loop");
             userOutput.displayHomeScreen();
@@ -44,6 +45,7 @@ public class VendingMachine {
                         money = balance.addMoney();
                         System.out.println("Current balance in purchase: $" + money);
                         moneyInMachine.setCurrentMoney(money);
+                        depositMoney.deposit();
                     } else if (choice.equals("Select item")) {
                         boolean slotExist = false;
                         boolean itemAvailable = false;
