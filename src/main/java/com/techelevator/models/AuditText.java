@@ -1,13 +1,27 @@
 package com.techelevator.models;
 
-import java.io.File;
+import java.io.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class AuditText {
+
     //new file object where is it supposed to go
     //idk how to create file
-    //File auditFile = new File(); //?????
+    File auditFile = new File("audit.txt");
+
+
+
+    public AuditText() throws FileNotFoundException {
+        try (PrintWriter dataOutput = new PrintWriter(auditFile)) {
+            dataOutput.println("Writing the first line of the file");
+            dataOutput.println("Writing the second line of the file");
+        } catch (FileNotFoundException e) {
+        System.err.println("Cannot open the file for writing.");
+        }
+    }
+
+
 
     //OR LIKE TRY TO FIND A MORE SIMPLE WAY
     //FOR FORMAT WE CAN USE MENU STUFF

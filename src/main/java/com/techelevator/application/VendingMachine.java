@@ -68,8 +68,8 @@ public class VendingMachine {
                         if(!itemAvailable && slotExist) {
                             System.out.println("Item is out of stock.");
                         }
-                        if(itemAvailable && !money.equals(BigDecimal.ZERO)) { //THIS IS WHERE !MONEY.EQUALS..DOESNT WORK!!
-                            count++;     //WE NEED ANOTHER WAY TO CHECK THAT IT IS NOT ZERO MAYBE THE COMPARES THING YOU MENTIONED
+                        if(itemAvailable && money.compareTo(BigDecimal.ZERO) > 0) {
+                            count++;
                             boolean thanksgiving = false;
                             if(count % 2 == 0) {
                                 System.out.println("Discount: one dollar off");
@@ -92,7 +92,7 @@ public class VendingMachine {
                         //receive change
                         System.out.println("change to give back: " + moneyInMachine.getCurrentMoney());
                         change(moneyInMachine.getCurrentMoney());
-                        //moneyInMachine.setCurrentMoney(BigDecimal.ZERO);
+                        //update balance to zero
                         break;
                     }
                 }
