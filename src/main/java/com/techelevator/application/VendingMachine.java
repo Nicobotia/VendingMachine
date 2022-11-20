@@ -142,6 +142,7 @@ public class VendingMachine {
         //UPDATE BALANCE TO 0
     }
 
+    
     public void callMenu(List<ItemsForSale> list1) {
         System.out.println();
         int name = list1.get(0).getItemName().length();
