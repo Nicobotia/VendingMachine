@@ -8,6 +8,8 @@ import com.techelevator.ui.UserOutput;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.math.MathContext;
+import java.math.RoundingMode;
 import java.util.List;
 
 public class VendingMachine {
@@ -19,10 +21,13 @@ public class VendingMachine {
         Balance balance = new Balance(BigDecimal.ZERO);
 
         String choice;
-        BigDecimal x = new BigDecimal(BigInteger.ZERO);
+        BigDecimal money = new BigDecimal(BigInteger.ZERO);
         String slotChosen;
+
         TransferFileToList list = new TransferFileToList();
         lisOfItems  = list.readItems();
+        Balance moneyInMachine = new Balance(money);
+
         do {
             System.out.println("back inside do while loop");
             userOutput.displayHomeScreen();
@@ -31,12 +36,14 @@ public class VendingMachine {
                 callMenu(lisOfItems);
             }
             else if(choice.equals("purchase")) {
+                int count = 0;
+                int temp = 0; //remaining quantity
                 while(true) {
-                    choice = userInput.getPurchaseHomeOption(x);
+                    choice = userInput.getPurchaseHomeOption(money);
                     if (choice.equals("Feed money")) {
-                        x = balance.addMoney();
-                        System.out.println("Current balance in purchase: $" + x);
-                        Balance moneyInMachine = new Balance(x);
+                        money = balance.addMoney();
+                        System.out.println("Current balance in purchase: $" + money);
+                        moneyInMachine.setCurrentMoney(money);
                     } else if (choice.equals("Select item")) {
                         boolean slotExist = false;
                         boolean itemAvailable = false;
@@ -54,7 +61,6 @@ public class VendingMachine {
                             if(quantityTest > 0) {
                                 itemAvailable = true;
                             }
-                            System.out.println("Quantity Remaining: " + test.getInStock());
                         }
                         else { //slot exists checking availability
                             System.out.println("Slot identifier does not exist.");
@@ -62,20 +68,31 @@ public class VendingMachine {
                         if(!itemAvailable && slotExist) {
                             System.out.println("Item is out of stock.");
                         }
-                        if(itemAvailable && slotExist && !x.equals(BigDecimal.ZERO)) {
-                            //call balance method //ask about updating actual list item not the copy
-                            int remaining = dispensing(test);
-                            System.out.println("quantity after dispense " + remaining);
-                            //call dispensing method
+                        if(itemAvailable && !money.equals(BigDecimal.ZERO)) { //THIS IS WHERE !MONEY.EQUALS..DOESNT WORK!!
+                            count++;     //WE NEED ANOTHER WAY TO CHECK THAT IT IS NOT ZERO MAYBE THE COMPARES THING YOU MENTIONED
+                            boolean thanksgiving = false;
+                            if(count % 2 == 0) {
+                                System.out.println("Discount: one dollar off");
+                                thanksgiving = true;
+                            }
+                            //METHODS
+                            BigDecimal remainingBalance = new BigDecimal(BigInteger.ZERO);
+                            money = updateBalance(test, money); //balance part
+                            moneyInMachine.setCurrentMoney(money); //update in balance class
+                            temp = dispensing(test, money, thanksgiving);
+                            test.setInStock(temp);
                         }
                         else {
-                            if(x.equals(BigDecimal.ZERO)) {
+                            if(money.equals(BigDecimal.ZERO)) {
                                 System.out.println("Current balance is zero");
                             }
                         }
                     } else if (choice.equals("Finish transaction")) {
-
                         System.out.println("here in finish transaction");
+                        //receive change
+                        System.out.println("change to give back: " + moneyInMachine.getCurrentMoney());
+                        change(moneyInMachine.getCurrentMoney());
+                        //moneyInMachine.setCurrentMoney(BigDecimal.ZERO);
                         break;
                     }
                 }
@@ -89,27 +106,59 @@ public class VendingMachine {
         System.out.println("left do while loop");
     }
 
-    public BigDecimal updateBalance(ItemsForSale item, BigDecimal num) {
+    public BigDecimal updateBalance(ItemsForSale item, BigDecimal balance) {
         BigDecimal moneyLeft = new BigDecimal(BigInteger.ZERO);
-        moneyLeft = num.subtract(item.getPrice());
+        moneyLeft = balance.subtract(item.getPrice());
         return moneyLeft;
     }
-
-    public int dispensing(ItemsForSale item) {
-        System.out.println(item.getItemName() + " $" + item.getPrice() + " balance not here yet");
-        //prints item sound
+    public int dispensing(ItemsForSale item, BigDecimal remainingBalance, boolean tg) {
+        System.out.println("DISPENSING");
+        System.out.println("IN STOCK: " + item.getInStock());
+        BigDecimal tempPrice = item.getPrice();
+        if(tg) {
+            tempPrice = tempPrice.subtract(BigDecimal.ONE);
+        }
+        System.out.println(item.getItemName() + " $" + tempPrice + " Remaining Balance: $" + remainingBalance);
+        System.out.println(item.getSound());
         int remaining = item.getInStock() - 1;
         return remaining;
+    }
+    public void change(BigDecimal change) {
+        System.out.println("initial change " + change);
+        BigDecimal dollars = new BigDecimal("1");  //CAN WE MAKE ALL THESE DECIMALS PRIVATE OR SHOULD THEY STAY LOCAL?
+        BigDecimal quarters = new BigDecimal("0.25");
+        BigDecimal dimes = new BigDecimal("0.10");
+        BigDecimal nickels = new BigDecimal("0.05");
+
+        BigDecimal[] amount = new BigDecimal[4]; //here is where the amounts of each type of currency will go
+        BigDecimal[] values = new BigDecimal[] {dollars, quarters, dimes, nickels};
+        for(int i = 0; i < amount.length; i++) { //THERES SOMETHING WRONG IN HERE BECAUSE NICKELS GETS A REALLY CRAZY DECIMAL NUMBER
+            amount[i] = change.divide(values[i], 0, RoundingMode.DOWN);
+            change = change.setScale(2).remainder(values[i]);
+        }
+        System.out.println("dollars " + amount[0] + " quarters " + amount[1] + " dimes " + amount[2] + " nickels " + amount[3]);
+        //UPDATE BALANCE TO 0
     }
 
 
     public void callMenu(List<ItemsForSale> list1) {
         System.out.println();
+        int name = list1.get(0).getItemName().length();
+        for(int i = 0; i < list1.size(); i++) {
+            int temp = list1.get(i).getItemName().length();
+            if(temp > name) {
+                name = temp + 3;
+            }
+        }
         for (ItemsForSale item : list1){
-            System.out.println(item.getSlot() + " " + item.getItemName() + " " + "$" + item.getPrice() + " Quantity Left: " + item.getInStock());
+            System.out.print(item.getSlot() + "   ");
+            System.out.print(item.getItemName());
+            //METHOD PRINTS SPACES
+            for(int i = 0; i < name-item.getItemName().length(); i++) {
+                System.out.print(" ");
+            }
+            System.out.println("$" + item.getPrice() + "   Quantity Left: " + item.getInStock());
         }
         System.out.println();
     }
-
-
 }

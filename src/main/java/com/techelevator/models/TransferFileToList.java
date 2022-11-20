@@ -23,9 +23,6 @@ public class TransferFileToList {
                 BigDecimal price = new BigDecimal(tempPrice);
                 String type = lineOfTextArray[3];
 
-// ItemsForSale is abstract class and make subclasses (gum, candy, etc) extend + dispense sound
-                //Create if classes
-                // if () ==> if user input is candy class, display code from below
                 if (type.equalsIgnoreCase("Candy")){
                     ItemsForSale values = new CandyClass (slot,itemName,price);
                     listItems.add(values);

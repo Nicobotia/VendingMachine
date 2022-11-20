@@ -20,6 +20,9 @@ public class Balance {
         return currentMoney;
     }
 
+    public void setCurrentMoney(BigDecimal money) {
+        this.currentMoney = money;
+    }
     public BigDecimal addMoney() {
         Scanner feedMoney = new Scanner(System.in);
         BigDecimal one = new BigDecimal(1);
@@ -31,8 +34,8 @@ public class Balance {
             System.out.println("Please enter money (only $1, $5, $10 or $20 bills): ");
             System.out.println("When done entering money please type 'done'");
             String userInput = feedMoney.nextLine();
-            if (userInput.equals("done")) {
-                break;
+            if (userInput.equals("done")) { //THERES AN ERROR HERE WITH DONE OR MAYBE IN VENDING MACHINE CHECK PURCHASE
+                break; //TRY PUTTING IN 0 THEN ERROR INCORRECT... WILL SHOW UP THEN YOU PUT DONE AND ITLL LET YOU GO TO SELECT ITEM
             }
             BigDecimal money = new BigDecimal(userInput);
 
@@ -45,16 +48,4 @@ public class Balance {
         }
         return currentMoney;
     }
-
-
-
-    public void currentMoneyMinusItemPrice() {
-        //currentMoney = currentMoney.substract(itemprice); //to update after something is bought
-    }
-    //stuffBalance method to keep track of how to much the items chosen cost??
-    public void stuffBalance() {
-        //stuffCost = stuffCost.add(itemprice);
-    }
-    //or can we just use one method and substract from each other
-
 }
