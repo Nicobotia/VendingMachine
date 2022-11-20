@@ -6,10 +6,7 @@ import java.time.format.DateTimeFormatter;
 
 public class AuditText {
 
-    //new file object where is it supposed to go
-    //idk how to create file
     File auditFile = new File("audit.txt");
-
 
 
     public AuditText() throws FileNotFoundException {
@@ -17,7 +14,7 @@ public class AuditText {
             dataOutput.println("Writing the first line of the file");
             dataOutput.println("Writing the second line of the file");
         } catch (FileNotFoundException e) {
-        System.err.println("Cannot open the file for writing.");
+            System.err.println("Cannot open the file for writing.");
         }
     }
 
