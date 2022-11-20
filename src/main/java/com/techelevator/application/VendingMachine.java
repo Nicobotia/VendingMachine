@@ -8,6 +8,8 @@ import com.techelevator.ui.UserOutput;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.math.MathContext;
+import java.math.RoundingMode;
 import java.util.List;
 
 public class VendingMachine {
@@ -66,8 +68,8 @@ public class VendingMachine {
                         if(!itemAvailable && slotExist) {
                             System.out.println("Item is out of stock.");
                         }
-                        if(itemAvailable && !money.equals(BigDecimal.ZERO)) {
-                            count++;
+                        if(itemAvailable && !money.equals(BigDecimal.ZERO)) { //THIS IS WHERE !MONEY.EQUALS..DOESNT WORK!!
+                            count++;     //WE NEED ANOTHER WAY TO CHECK THAT IT IS NOT ZERO MAYBE THE COMPARES THING YOU MENTIONED
                             boolean thanksgiving = false;
                             if(count % 2 == 0) {
                                 System.out.println("Discount: one dollar off");
@@ -122,20 +124,42 @@ public class VendingMachine {
     }
     public void change(BigDecimal change) {
         System.out.println("initial change " + change);
-        while(!change.equals(1)) {  //change to compare here
-            change = change.subtract(BigDecimal.ONE); //figure out how to subtract change
+        BigDecimal dollars = new BigDecimal(1);  //CAN WE MAKE ALL THESE DECIMALS PRIVATE OR SHOULD THEY STAY LOCAL?
+        BigDecimal quarters = new BigDecimal(0.25);
+        BigDecimal dimes = new BigDecimal(0.10);
+        BigDecimal nickels = new BigDecimal(0.05);
+
+        BigDecimal[] amount = new BigDecimal[4]; //here is where the amounts of each type of currency will go
+        BigDecimal[] values = new BigDecimal[] {dollars, quarters, dimes, nickels};
+        for(int i = 0; i < amount.length; i++) { //THERES SOMETHING WRONG IN HERE BECAUSE NICKELS GETS A REALLY CRAZY DECIMAL NUMBER
+            MathContext mc = new MathContext(2);
+            amount[i] = change.divide(values[i], 0, RoundingMode.DOWN);
+            System.out.println("amount " + amount[i]);
+            change = change.setScale(2).remainder(values[i], mc);
+            System.out.println("current change/i " + change + " " + i + "\n");
         }
-        System.out.println("after removing dollars " + change);
-        //update balance to 0
+        System.out.println("dollars " + amount[0] + " quarters " + amount[1] + " dimes " + amount[2] + " nickels " + nickels);
+        //UPDATE BALANCE TO 0
     }
 
     public void callMenu(List<ItemsForSale> list1) {
         System.out.println();
+        int name = list1.get(0).getItemName().length();
+        for(int i = 0; i < list1.size(); i++) {
+            int temp = list1.get(i).getItemName().length();
+            if(temp > name) {
+                name = temp + 3;
+            }
+        }
         for (ItemsForSale item : list1){
-            System.out.println(item.getSlot() + " " + item.getItemName() + " " + "$" + item.getPrice() + " Quantity Left: " + item.getInStock());
+            System.out.print(item.getSlot() + "   ");
+            System.out.print(item.getItemName());
+            //METHOD PRINTS SPACES
+            for(int i = 0; i < name-item.getItemName().length(); i++) {
+                System.out.print(" ");
+            }
+            System.out.println("$" + item.getPrice() + "   Quantity Left: " + item.getInStock());
         }
         System.out.println();
     }
-
-
 }
