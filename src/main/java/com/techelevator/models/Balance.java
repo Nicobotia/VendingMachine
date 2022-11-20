@@ -1,6 +1,7 @@
 package com.techelevator.models;
 
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.Scanner;
 
 
@@ -30,7 +31,6 @@ public class Balance {
         BigDecimal ten = new BigDecimal(10);
         BigDecimal twenty = new BigDecimal(20);
 
-
             while (true) {
                 System.out.println("Please enter money (only $1, $5, $10 or $20 bills): ");
                 System.out.println("When done entering money please type 'done'");
@@ -42,6 +42,9 @@ public class Balance {
 
                 if (money.compareTo(one) == 0 || money.compareTo(five) == 0 || money.compareTo(ten) == 0 || money.compareTo(twenty) == 0) {
                     currentMoney = currentMoney.add(money);
+                    //AuditText stuff = new AuditText("", "", BigDecimal.ZERO, BigDecimal.ZERO);
+                    AuditText stuff = new AuditText("MONEY FED: ", "  ", money, currentMoney);
+                    stuff.getAuditText();
                 } else {
                     System.out.println("Error, incorrect bill amount");
                 }

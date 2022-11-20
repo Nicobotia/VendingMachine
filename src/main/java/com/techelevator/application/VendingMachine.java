@@ -27,7 +27,7 @@ public class VendingMachine {
         TransferFileToList list = new TransferFileToList();
         lisOfItems  = list.readItems();
         Balance moneyInMachine = new Balance(money);
-        AuditText depositMoney = new AuditText();
+        //AuditText depositMoney = new AuditText();
         do {
             System.out.println("back inside do while loop");
             userOutput.displayHomeScreen();
@@ -38,6 +38,7 @@ public class VendingMachine {
             else if(choice.equals("purchase")) {
                 int count = 0;
                 int temp = 0; //remaining quantity
+                BigDecimal tempMoney = new BigDecimal(BigInteger.ZERO);
                 while(true) {
                     userOutput.displayPurchaseScreen();
                     choice = userInput.getPurchaseHomeOption(money);
@@ -45,7 +46,7 @@ public class VendingMachine {
                         money = balance.addMoney();
                         System.out.println("Current balance in purchase: $" + money);
                         moneyInMachine.setCurrentMoney(money);
-                        depositMoney.deposit();
+                        //depositMoney.deposit();
                     } else if (choice.equals("Select item")) {
                         boolean slotExist = false;
                         boolean itemAvailable = false;
@@ -78,10 +79,11 @@ public class VendingMachine {
                                 thanksgiving = true;
                             }
                             //METHODS
+                            tempMoney = money;
                             BigDecimal remainingBalance = new BigDecimal(BigInteger.ZERO);
-                            money = updateBalance(test, money); //balance part
-                            moneyInMachine.setCurrentMoney(money); //update in balance class
-                            temp = dispensing(test, money, thanksgiving);
+                            money = updateBalance(test, money); //balance part              /////////////////////////
+                            moneyInMachine.setCurrentMoney(money); //update in balance class ///////////////////////
+                            temp = dispensing(test, money, thanksgiving, tempMoney);
                             test.setInStock(temp);
                         }
                         else {
@@ -90,8 +92,6 @@ public class VendingMachine {
                             }
                         }
                     } else if (choice.equals("Finish transaction")) {
-                        System.out.println("here in finish transaction");
-                        //receive change
                         System.out.println("change to give back: " + moneyInMachine.getCurrentMoney());
                         change(moneyInMachine.getCurrentMoney());
                         //update balance to zero
@@ -113,7 +113,8 @@ public class VendingMachine {
         moneyLeft = balance.subtract(item.getPrice());
         return moneyLeft;
     }
-    public int dispensing(ItemsForSale item, BigDecimal remainingBalance, boolean tg) {
+    public int dispensing(ItemsForSale item, BigDecimal remainingBalance, boolean tg, BigDecimal tempMoney) {
+        BigDecimal tempBalance = new BigDecimal(String.valueOf(remainingBalance));
         BigDecimal tempPrice = item.getPrice();
         if(tg) {
             tempPrice = tempPrice.subtract(BigDecimal.ONE);
@@ -121,9 +122,13 @@ public class VendingMachine {
         System.out.println(item.getItemName() + " $" + tempPrice + " Remaining Balance: $" + remainingBalance);
         System.out.println(item.getSound());
         int remaining = item.getInStock() - 1;
+        AuditText stuff = new AuditText(item.getItemName(), item.getSlot(), tempMoney, tempBalance);
+        stuff.getAuditText();
         return remaining;
     }
     public void change(BigDecimal change) {
+        AuditText stuff = new AuditText("CHANGE GIVEN: ", "  ", change, new BigDecimal("0.00"));
+        stuff.getAuditText();
         BigDecimal dollars = new BigDecimal("1");
         BigDecimal quarters = new BigDecimal("0.25");
         BigDecimal dimes = new BigDecimal("0.10");

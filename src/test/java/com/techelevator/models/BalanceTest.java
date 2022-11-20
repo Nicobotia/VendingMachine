@@ -25,9 +25,10 @@ public class BalanceTest {
         Assert.assertEquals(new BigDecimal("23.00"), result);
     }
 
-    /*
+
     @Test
     public void addMoney() {
+        /*
         Scanner feedMoney = new Scanner(System.in);
         Balance testAddMoney = new Balance(new BigDecimal("0"));
         String userInput = feedMoney.nextLine();
@@ -35,6 +36,8 @@ public class BalanceTest {
         BigDecimal money = new BigDecimal(userInput);
 
         Assert.assertEquals(new BigDecimal("20.00"), money);
+
+         */
     }
-     */
+
 }
