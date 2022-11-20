@@ -23,9 +23,9 @@ public class Balance {
     public BigDecimal addMoney() {
         Scanner feedMoney = new Scanner(System.in);
         BigDecimal one = new BigDecimal(1);
-        BigDecimal five = new BigDecimal(5); //creating these variables fixed the issue of not being able to add the user money. OKAY.
-        BigDecimal ten = new BigDecimal(10);  //can we put this in private variables at the top? ASK IF THAT IS A GOOD IDEA MAYBE?
-        BigDecimal twenty = new BigDecimal(20); //Talked to Kelvin, he said here are good.
+        BigDecimal five = new BigDecimal(5);
+        BigDecimal ten = new BigDecimal(10);
+        BigDecimal twenty = new BigDecimal(20);
 
         while (true){
             System.out.println("Please enter money (only $1, $5, $10 or $20 bills): ");
