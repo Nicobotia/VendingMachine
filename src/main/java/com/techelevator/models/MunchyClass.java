@@ -1,10 +1,12 @@
 package com.techelevator.models;
 
+import java.math.BigDecimal;
+
 public class MunchyClass extends ItemsForSale{
 
 
-    public MunchyClass(String slot1, String itemName, double price, String type) {
-        super(slot1, itemName, price, type);
+    public MunchyClass(String slot1, String itemName, BigDecimal price) {
+        super(slot1, itemName, price,"Munchy");
     }
 
     @Override

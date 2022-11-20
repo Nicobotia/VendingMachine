@@ -2,6 +2,8 @@ package com.techelevator.models;
 
 import java.math.BigDecimal;
 import java.util.Scanner;
+import com.techelevator.ui.UserInput;
+
 
 public class Balance {
     private BigDecimal currentMoney;
@@ -14,7 +16,7 @@ public class Balance {
                                 //Check vending machine class
     }
 
-    public BigDecimal getMachineBalance() { //return balance of money fed to machine
+    public BigDecimal getCurrentMoney() { //return balance of money fed to machine
         return currentMoney;
     }
 
@@ -27,7 +29,7 @@ public class Balance {
 
         while (true){
             System.out.println("Please enter money (only $1, $5, $10 or $20 bills): ");
-            System.out.println("When done entering money please type 'done'");                         //FOR NEATNESS PLEASE ENTER MONEY/TYPE 0 WHEN DONE LINES ADDED TO METHOD AT THE BOTTOM, FEEL FREE TO DELETE THIS COMMENT AFTER YOU READ
+            System.out.println("When done entering money please type 'done'");
             String userInput = feedMoney.nextLine();
             if (userInput.equals("done")) {
                 break;

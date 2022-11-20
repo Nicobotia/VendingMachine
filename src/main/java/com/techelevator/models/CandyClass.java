@@ -1,8 +1,11 @@
 package com.techelevator.models;
 
+import java.math.BigDecimal;
+
 public class CandyClass extends ItemsForSale {
 
-    public CandyClass(String slot1, String itemName, double price) {
+    public CandyClass(String slot1, String itemName, BigDecimal price) {
+
         super(slot1, itemName, price, "Candy");
     }
 

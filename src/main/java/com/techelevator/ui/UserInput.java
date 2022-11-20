@@ -48,12 +48,12 @@ public class UserInput
         }
     }
 
-    public String getPurchaseHomeOption (){
+    public String getPurchaseHomeOption (BigDecimal num){
         System.out.println("M) Feed money");
         System.out.println("S) Select item");
         System.out.println("F) Finish transaction");
         System.out.println();
-        System.out.println("Current Money Provided: $0.00"); //variable is in method?
+        System.out.println("Current Money Provided: $" + num); //variable is in method?
         String selectedOption = scanner.nextLine();
         String option = selectedOption.trim().toUpperCase();
         if (option.equals("M")){
@@ -68,6 +68,14 @@ public class UserInput
         else {
             return "";
         }
+    }
+
+    public static String getSlotIdentifier() {
+        Scanner scan = new Scanner(System.in);
+        System.out.println("Select slot identifier for item: ");
+        String selectedOption = scan.nextLine();
+        String option = selectedOption.trim().toUpperCase();
+        return option;
     }
     
 }
