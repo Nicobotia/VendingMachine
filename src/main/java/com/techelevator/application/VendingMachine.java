@@ -27,9 +27,7 @@ public class VendingMachine {
         TransferFileToList list = new TransferFileToList();
         lisOfItems  = list.readItems();
         Balance moneyInMachine = new Balance(money);
-        //AuditText depositMoney = new AuditText();
         do {
-            System.out.println("back inside do while loop");
             userOutput.displayHomeScreen();
             choice = userInput.getHomeScreenOption();
             if(choice.equals("display")) {
@@ -37,14 +35,13 @@ public class VendingMachine {
             }
             else if(choice.equals("purchase")) {
                 int count = 0;
-                int temp = 0; //remaining quantity
+                int temp = 0;
                 BigDecimal tempMoney = new BigDecimal(BigInteger.ZERO);
                 while(true) {
                     userOutput.displayPurchaseScreen();
                     choice = userInput.getPurchaseHomeOption(money);
                     if (choice.equals("Feed money")) {
                         money = balance.addMoney();
-                        System.out.println("Current balance in purchase: $" + money);
                         moneyInMachine.setCurrentMoney(money);
                         //depositMoney.deposit();
                     } else if (choice.equals("Select item")) {
@@ -81,10 +78,15 @@ public class VendingMachine {
                             //METHODS
                             tempMoney = money;
                             BigDecimal remainingBalance = new BigDecimal(BigInteger.ZERO);
-                            money = updateBalance(test, money); //balance part              /////////////////////////
-                            moneyInMachine.setCurrentMoney(money); //update in balance class ///////////////////////
-                            temp = dispensing(test, money, thanksgiving, tempMoney);
-                            test.setInStock(temp);
+                            money = updateBalance(test, money);
+                            if(tempMoney.compareTo(money) == 1) {
+                                moneyInMachine.setCurrentMoney(money);
+                                temp = dispensing(test, money, thanksgiving, tempMoney);
+                                test.setInStock(temp);
+                            }
+                            else {
+                                System.out.println("Not enough money.");
+                            }
                         }
                         else {
                             if(money.equals(BigDecimal.ZERO)) {
@@ -92,40 +94,42 @@ public class VendingMachine {
                             }
                         }
                     } else if (choice.equals("Finish transaction")) {
-                        System.out.println("change to give back: " + moneyInMachine.getCurrentMoney());
+                        System.out.println("Your change is: " + moneyInMachine.getCurrentMoney());
                         change(moneyInMachine.getCurrentMoney());
-                        //update balance to zero
+                        moneyInMachine.setCurrentMoney(BigDecimal.ZERO);
                         break;
                     }
                 }
             }
             else if (choice.equals("exit")) {
-                System.out.println("here in exit");
                 break;
             }
-            System.out.println("right before while condition");
         } while(true);
-        System.out.println("left do while loop");
     }
 
+
     public BigDecimal updateBalance(ItemsForSale item, BigDecimal balance) {
-        BigDecimal moneyLeft = new BigDecimal(BigInteger.ZERO);
-        moneyLeft = balance.subtract(item.getPrice());
-        return moneyLeft;
+        if(balance.compareTo(item.getPrice()) != -1) {
+            balance = balance.subtract(item.getPrice());
+            return balance;
+        }
+        return balance;
     }
+
     public int dispensing(ItemsForSale item, BigDecimal remainingBalance, boolean tg, BigDecimal tempMoney) {
         BigDecimal tempBalance = new BigDecimal(String.valueOf(remainingBalance));
         BigDecimal tempPrice = item.getPrice();
-        if(tg) {
-            tempPrice = tempPrice.subtract(BigDecimal.ONE);
-        }
-        System.out.println(item.getItemName() + " $" + tempPrice + " Remaining Balance: $" + remainingBalance);
-        System.out.println(item.getSound());
-        int remaining = item.getInStock() - 1;
-        AuditText stuff = new AuditText(item.getItemName(), item.getSlot(), tempMoney, tempBalance);
-        stuff.getAuditText();
-        return remaining;
+            if(tg) {
+                tempPrice = tempPrice.subtract(BigDecimal.ONE);
+            }
+            System.out.println(item.getItemName() + " $" + tempPrice + " Remaining Balance: $" + remainingBalance);
+            System.out.println(item.getSound());
+            int remaining = item.getInStock() - 1;
+            AuditText stuff = new AuditText(item.getItemName(), item.getSlot(), tempMoney, tempBalance);
+            stuff.getAuditText();
+            return remaining;
     }
+
     public void change(BigDecimal change) {
         AuditText stuff = new AuditText("CHANGE GIVEN: ", "  ", change, new BigDecimal("0.00"));
         stuff.getAuditText();
@@ -140,10 +144,8 @@ public class VendingMachine {
             amount[i] = change.divide(values[i], 0, RoundingMode.DOWN);
             change = change.setScale(2).remainder(values[i]);
         }
-        System.out.println("dollars " + amount[0] + " quarters " + amount[1] + " dimes " + amount[2] + " nickels " + amount[3]);
-        //UPDATE BALANCE TO 0
+        System.out.println("Dollars: " + amount[0] + " | Quarters: " + amount[1] + " | Dimes: " + amount[2] + " | Nickels: " + amount[3]);
     }
-
 
     public void callMenu(List<ItemsForSale> list1) {
         System.out.println();
@@ -154,14 +156,8 @@ public class VendingMachine {
                 name = temp + 3;
             }
         }
-        for (ItemsForSale item : list1){
-            System.out.print(item.getSlot() + "   ");
-            System.out.print(item.getItemName());
-            //METHOD PRINTS SPACES
-            for(int i = 0; i < name-item.getItemName().length(); i++) {
-                System.out.print(" ");
-            }
-            System.out.println("$" + item.getPrice() + "   Quantity Left: " + item.getInStock());
+        for (ItemsForSale item : list1) {
+            System.out.println(String.format("%-4s", item.getSlot()) + String.format("%-" + String.valueOf(name) + "s", item.getItemName()) + String.format("%-8s", "$" + item.getPrice()) + String.format("%-20s", "Quantity Left: " + String.valueOf(item.getInStock())));
         }
         System.out.println();
     }

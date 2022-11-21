@@ -1,7 +1,6 @@
 package com.techelevator.models;
 
 import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.util.Scanner;
 
 
@@ -39,10 +38,9 @@ public class Balance {
                     break;
                 }
                 BigDecimal money = new BigDecimal(userInput);
-
                 if (money.compareTo(one) == 0 || money.compareTo(five) == 0 || money.compareTo(ten) == 0 || money.compareTo(twenty) == 0) {
                     currentMoney = currentMoney.add(money);
-                    //AuditText stuff = new AuditText("", "", BigDecimal.ZERO, BigDecimal.ZERO);
+                    money = money.setScale(2);
                     AuditText stuff = new AuditText("MONEY FED: ", "  ", money, currentMoney);
                     stuff.getAuditText();
                 } else {
@@ -51,6 +49,5 @@ public class Balance {
                 System.out.println("Current balance: " + "$" + currentMoney);
             }
             return currentMoney;
-
     }
 }
