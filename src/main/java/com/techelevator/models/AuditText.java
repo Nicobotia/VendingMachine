@@ -32,7 +32,7 @@ public class AuditText {
 
 
     public AuditText() throws FileNotFoundException {
-        File auditFile = new File("audit.txt");
+        File auditFile = new File("C:\\Users\\Student\\workspace\\nicolas-botia-student-code\\java-orange-minicapstonemodule1-team2\\audit.txt");
         if (!auditFile.exists()) {
             try {
                 auditFile.createNewFile();
