@@ -16,8 +16,7 @@ public class AuditText {
     //File auditFile = new File("Audit.txt");
 
 
-
-    public AuditText(String activity, String slot, BigDecimal deposit, BigDecimal total){
+    public AuditText(String activity, String slot, BigDecimal deposit, BigDecimal total) {
         this.activity = activity;
         this.slot = slot;
         this.deposit = deposit;
@@ -28,20 +27,28 @@ public class AuditText {
         timeDateStuff();
         //print to file here
         System.out.println(activity + "     " + slot + "        $" + deposit + "  $" + total + "\n");
-        return(activity + "      " + slot + "   $" + deposit + "  $" + total + "\n");
+        return (activity + "      " + slot + "   $" + deposit + "  $" + total + "\n");
     }
 
-    File auditFile = new File("audit.txt");
+
+    public AuditText() throws FileNotFoundException {
+        File auditFile = new File("audit.txt");
+        if (!auditFile.exists()) {
+            try {
+                auditFile.createNewFile();
+            } catch (IOException e) {
+                System.out.println("File not created");
+            }
+        }
+        try (PrintWriter dataOutput = new PrintWriter(auditFile)) {
+            dataOutput.println("Writing the first line of the file");
+            dataOutput.println("Writing the second line of the file");
+        } catch (FileNotFoundException e) {
+            System.err.println("Cannot open the file for writing.");
+        }
+    }
 
 
-//    public AuditText() throws FileNotFoundException {
-//        try (PrintWriter dataOutput = new PrintWriter(auditFile)) {
-//            dataOutput.println("Writing the first line of the file");
-//            dataOutput.println("Writing the second line of the file");
-//        } catch (FileNotFoundException e) {
-//            System.err.println("Cannot open the file for writing.");
-//        }
-//    }
 
 
     //time and date stuff
